@@ -2,8 +2,8 @@
     
 <!-------   Wednesday, January 29, 2020   ------->
 
-## Peering into the depths of color
-### Color Depth
+### Peering into the depths of color
+#### Color Depth
 - The amount of data used to represent a single pixel
 
 | size   | color options                           |
@@ -15,13 +15,13 @@
 | 6 bit  | RGB, each color has its own intensity   |
 | 3 byte | RGB, each with 256 possible intensities |
 
-### Other Color Spaces
+#### Other Color Spaces
 - RGBA
     - Red, Green, Blue + Alpha (transparency)
 - HSB
     - Hue, Saturation, Brightness
     - ![HSB Visualization](https://upload.wikimedia.org/wikipedia/commons/e/ea/HSV_cone.png "HSB Visualization")
-### Image File Formats
+#### Image File Formats
 - Raster vs. Vector
     - Vector formats represent images as a series of drawing instructions
         - Infinitely scalable
