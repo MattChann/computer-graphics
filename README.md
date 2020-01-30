@@ -1,7 +1,6 @@
 # Notes for Computer Graphics Class
     
 <!-------   Wednesday, January 29, 2020   ------->
-
 ### Peering into the depths of color
 #### Color Depth
 - The amount of data used to represent a single pixel
@@ -20,7 +19,7 @@
     - Red, Green, Blue + Alpha (transparency)
 - HSB
     - Hue, Saturation, Brightness
-    - ![HSB Visualization](https://upload.wikimedia.org/wikipedia/commons/e/ea/HSV_cone.png "HSB Visualization")
+    - <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/HSV_cone.png" alt="HSB Visualization" width="250"/>
 #### Image File Formats
 - Raster vs. Vector
     - Vector formats represent images as a series of drawing instructions
@@ -29,4 +28,34 @@
     - Raster formats represent images as a grid of pixels
 - Uncompressed vs. Compressed (Raster)
     - Uncompressed formats contain data for each pixel
-        - BMP, TIFF, RAW
+        - BMP, TIFF, RAW    <!-------   Thursday, January 30, 2020   ------->
+    - Compressed formats use a compression algorithm to minimize file size
+    - Lossless vs. Lossy
+        - Lossless compression algorithms contain enough information to exactly recreate the image
+            - Run Length Encoding
+                - `RRRRRGGBBBB` --> `R5G2BB4`
+            - PNG (Portable Network Graphics), GIF (Graphics Interchange Format)
+        - Lossy compression algortihms do not retain all the details of the original image
+            - JPEG (Joint Photographic Experts Group)
+#### PPM (Portable PixMap)
+- Uncompressed raster format
+- Part of NETPBM Graphics family
+- Pixel data is represented by RGB triplets in either ASCII or binary
+- All whitespace is equivalent
+- Ex ASCII ppm file (`pic.ppm`)
+```ppm
+P3
+5 5
+255
+255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
+255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
+255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
+255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
+255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
+```
+
+- Making a PPM file (line-by-line, but all whitespace is equivalent anyways):
+    - Must start with `P3` if in ASCII, `P6` if in binary
+    - Specify width then height
+    - Specify max value (will map 0->255 to 0->100 if you use `100`)
+    - Then your pixel triplets
