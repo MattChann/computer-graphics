@@ -120,6 +120,6 @@ image = open('image.ppm', 'w')
 initialize_ppm(image)
 print("Please remain patient, this may take some time to complete...")
 generate_pixels(image)
-print("Done, thanks for waiting!")
+print("Done! Thanks for waiting.")
 
 image.close()
