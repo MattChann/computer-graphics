@@ -25,7 +25,7 @@ def initialize_ppm(image):
     heading = '\n'.join(heading)
     image.write(heading + '\n')
 
-def format_pixel(r, g, b, x, y):
+def format_pixel(r, g, b):
     if r < 0:
         r = 0
     if g < 0:
@@ -45,8 +45,6 @@ def format_pixel(r, g, b, x, y):
 
     pixel = [str(x) for x in (r, g, b)]
     pixel = ' '.join(pixel)
-    if ((x+1) == WIDTH) and ((y+1) == HEIGHT):
-        return pixel
     return pixel + ' '
 
 def r(n, x, y):
@@ -112,7 +110,7 @@ def generate_pixels(image):
             g = value - (MAX_VALUE * 2)
             b = value - (MAX_VALUE * 3)
             
-            image.write(format_pixel(r, g, b, x, y))
+            image.write(format_pixel(r, g, b))
             # print(f'x: {x} || y: {y} || exp: {exponent}')
 
 
@@ -122,6 +120,6 @@ image = open('image.ppm', 'w')
 initialize_ppm(image)
 print("Please remain patient, this may take some time to complete...")
 generate_pixels(image)
-print("Done!")
+print("Done, thanks for waiting!")
 
 image.close()
