@@ -51,7 +51,7 @@ P3
 255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
 255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
 255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
-255 255 0 255 255 0 255 255 0 255 255 0 255 255 0
+255 255 0 255 255 0 255 255 0 255 255 0 255 255 0 
 ```
 
 - Making a PPM file (line-by-line, but all whitespace is equivalent anyways):
@@ -59,3 +59,6 @@ P3
     - Specify width then height
     - Specify max value (will map 0->255 to 0->100 if you use `100`)
     - Then your pixel triplets
+    - Note-to-self: leave the trailing space after last pixel; if not there, will give error about end-of-file when converting
+
+
