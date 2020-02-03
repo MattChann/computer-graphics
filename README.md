@@ -61,4 +61,17 @@ P3
     - Then your pixel triplets
     - Note-to-self: leave the trailing space after last pixel; if not there, will give error about end-of-file when converting
 
+<!-------   Monday, February 03, 2020   ------->
+### Line Algorithm
+![Line Algorithm Diagram](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc0kjSOTnP9pxiE3vwlMnmIm9x1jsdqYyRvqh-0UtzIWK1_qrI&s)
 
+**Input**: 2 endpoints
+
+Ideas?:
+- test potential pixels
+- iterate through potential pixels
+- one pixel per x-value*
+
+![Octants Diagram](https://i.stack.imgur.com/Gk616.jpg)
+
+**Octant I**: `0 < m < 1`
