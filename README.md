@@ -75,3 +75,9 @@ Ideas?:
 ![Octants Diagram](https://i.stack.imgur.com/Gk616.jpg)
 
 **Octant I**: `0 < m < 1`
+
+Steps of Algorithm:
+1. Loop through `x_0` --> `x_1`
+2. Test (`x+1`, `y`)
+3. Test (`x+1`, `y+1`)
+4. Pick best point
