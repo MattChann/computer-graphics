@@ -78,6 +78,41 @@ Ideas?:
 
 Steps of Algorithm:
 1. Loop through `x_0` --> `x_1`
-2. Test (`x+1`, `y`)
-3. Test (`x+1`, `y+1`)
+2. `Test(x+1, y)`
+3. `Test(x+1, y+1)`
 4. Pick best point
+
+Pseudocode for Picking best point/pixel v0:
+```
+f(x, y) = Ax + By + C
+
+
+x = x_0
+y = y_0
+
+while x <= x_1
+    plot(x, y)
+    d0 = f(x+1, y+1)
+    d1 = f(x+1, y)
+    
+    if (abs(d0) < abs(d1))
+        y = y+1
+    x = x+1
+```
+
+Pseudocode for Picking best point/pixel v1:
+```
+f(x, y) = Ax + By + C
+
+
+x = x_0
+y = y_0
+
+while x <= x_1
+    plot(x, y)
+    d = f(x+1, y+(1/2))
+    
+    if d > 0
+        y = y+1
+    x = x+1
+```
