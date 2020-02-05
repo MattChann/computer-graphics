@@ -63,7 +63,7 @@ P3
 
 <!-------   Monday, February 03, 2020   ------->
 ### Line Algorithm
-![Line Algorithm Diagram](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc0kjSOTnP9pxiE3vwlMnmIm9x1jsdqYyRvqh-0UtzIWK1_qrI&s)
+<img src="Bresenham's Line Algorithm Diagram.png" alt="Line Algorithm Diagram"/>
 
 **Input**: 2 endpoints
 
@@ -82,10 +82,9 @@ Steps of Algorithm:
 3. `Test(x+1, y+1)`
 4. Pick best point
 
-Pseudocode for Picking best point/pixel v0:
+Pseudocode for Picking best point/pixel (OCTANT I) v0:
 ```
 f(x, y) = Ax + By + C
-
 
 x = x_0
 y = y_0
@@ -100,10 +99,9 @@ while x <= x_1
     x = x+1
 ```
 
-Pseudocode for Picking best point/pixel v1:
+Pseudocode for Picking best point/pixel (OCTANT I) v1:
 ```
 f(x, y) = Ax + By + C
-
 
 x = x_0
 y = y_0
@@ -115,4 +113,71 @@ while x <= x_1
     if d > 0
         y = y+1
     x = x+1
+```
+
+
+Pseudocode for Picking best point/pixel (OCTANT I) v2:
+```
+f(x, y) = Ax + By + C
+
+x = x_0
+y = y_0
+d = A + (1/2)B
+while x <= x_1
+    plot(x, y)
+    
+    if d > 0
+        y = y+1
+        d = d+B
+    x = x+1
+    d = d+A
+```
+
+Pseudocode for Picking best point/pixel (OCTANT I) v3:
+```
+f(x, y) = Ax + By + C
+
+x = x_0
+y = y_0
+d = A + (1/2)B
+while x <= x_1
+    plot(x, y)
+    
+    if d > 0
+        y = y+1
+        d = d+B
+    x = x+1
+    d = d+A
+```
+
+Pseudocode for Picking best point/pixel (OCTANT I) v4:
+```
+f(x, y) = Ax + By + C
+
+x = x_0
+y = y_0
+d = 2A + B
+while x <= x_1
+    plot(x, y)
+    
+    if d > 0
+        y = y+1
+        d = d+2B
+    x = x+1
+    d = d+2A
+```
+
+Pseudocode for Picking best point/pixel (OCTANT II):
+```
+x = x_0
+y = y_0
+d = A + 2B
+while y <= y_1
+    plot(x, y)
+    
+    if d <= 0
+        x = x+1
+        d = d+2A
+    y = y+1
+    d = d+2B
 ```
