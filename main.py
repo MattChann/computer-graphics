@@ -38,3 +38,30 @@ display(s)
 save_ppm(s, 'binary.ppm')
 save_ppm_ascii(s, 'ascii.ppm')
 save_extension(s, 'img.png')
+
+
+
+#==================================================================================================
+# import math
+
+# s = new_screen()
+# c = [ 255, 255, 255 ]
+
+# RADIUS = 250
+
+# for i in range(100):
+#     theta = i * ((2 * math.pi)/100)
+
+#     offsets = [0, (math.pi * 9 / 10), (math.pi / 7), (math.pi * 7 / 8)]
+#     points = list()
+#     for theta_offset in offsets:
+#         points.append(((RADIUS * math.cos(theta + theta_offset)) + RADIUS, (RADIUS * math.sin(theta + theta_offset)) + RADIUS))
+#     for point in points:
+#         for other_point in points:
+#             if point != other_point:
+#                 draw_line(point[0], point[1], other_point[0], other_point[1], s, c)
+
+# display(s)
+# save_ppm(s, 'binary.ppm')
+# save_ppm_ascii(s, 'ascii.ppm')
+# save_extension(s, 'img.png')
