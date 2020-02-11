@@ -181,3 +181,10 @@ while y <= y_1
     y = y+1
     d = d+2B
 ```
+
+<!-------   Tuesday, February 11, 2020   ------->
+### Matrices in Graphics
+- we will store all the significant endpoints of our images in a single list/matrix
+- we will maintain an edge matrix, where each pair of entries defines an edge
+- points are (x,y) or (x,y,z) coordinates
+- **Matrix Multiplication (Review)**
