@@ -1,4 +1,4 @@
-# Work 02: Because it's time, you'll make a line
+# Work 01: Because it's time, you'll make a line
 
 **Due: Tuesday 02/011 8:00am**
 
