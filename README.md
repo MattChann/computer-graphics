@@ -208,4 +208,33 @@ while y <= y_1
             | 0 0 1 c || z | = | z+c |
             [ 0 0 0 1 ][ 1 ]   [ 1   ]
 - Rotate
-    - (x,y,z) --- R_{theta,axis} ---> (?,?,?)
+    - About the Z-Axis
+        - (x,y,z) --- R_{theta,z-axis} ---> (xcosθ-ysinθ, xsinθ+ycosθ, z)
+
+                [ cos(theta) -sin(theta) 0 0 ][ x ]   [ xcosθ-ysinθ ]
+                | sin(theta) cos(theta)  0 0 || y |   | xsinθ+ycosθ |
+                | 0          0           1 0 || z | = | z           |
+                [ 0          0           0 1 ][ 1 ]   [ 1           ]
+
+    - About the X-Axis
+        - (x,y,z) --- R_{theta,x-axis} ---> (x,ycosθ-zsinθ,ysinθ+zcosθ)
+
+                [ 1 0          0           0 ][ x ]   [ x           ]
+                [ 0 cos(theta) -sin(theta) 0 ]| y |   | ycosθ-zsinθ |
+                | 0 sin(theta) cos(theta)  0 || z | = | ysinθ+zcosθ |
+                [ 0 0          0           1 ][ 1 ]   [ 1           ]
+
+    - About the Y-Axis
+        - (x,y,z) --- R_{theta,z-axis} ---> (xcosθ+zsinθ,y,zcosθ-xsinθ)
+
+                [ cos(theta)  0 sin(theta) 0 ][ x ]   [ xcosθ+zsinθ ]
+                [ 0           1 0          0 ]| y |   | y           |
+                | -sin(theta) 0 cos(theta) 0 || z | = | zcosθ-xsinθ |
+                [ 0           0 0          1 ][ 1 ]   [ 1           ]
+
+- Combining Transformations
+    - E0: Edge Matrix, T: Translate Matrix, R: Rotate Matrix, S: Scale Matrix
+    - T * E0 = E1 (Translated)
+    - R * E1 = E2 (Translated, Rotated)
+    - S * E2 = E3 (Translated, Rotated, Scaled)
+    - E3 = S * R * T * E0
