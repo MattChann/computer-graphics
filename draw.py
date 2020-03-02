@@ -27,7 +27,10 @@ def add_point( matrix, x, y, z=0 ):
 
 
 def draw_line( x0, y0, x1, y1, screen, color ):
-
+    x0 = int(round(x0))
+    x1 = int(round(x1))
+    y0 = int(round(y0))
+    y1 = int(round(y1))
     #swap points if going right -> left
     if x0 > x1:
         xt = x0
