@@ -68,19 +68,19 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
 
         if line == 'sphere':
             #print 'SPHERE\t' + str(args)
-            add_sphere(edges,
+            add_sphere(polygons,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), steps_3d)
 
         elif line == 'torus':
             #print 'TORUS\t' + str(args)
-            add_torus(edges,
+            add_torus(polygons,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), steps_3d)
 
         elif line == 'box':
             #print 'BOX\t' + str(args)
-            add_box(edges,
+            add_box(polygons,
                     float(args[0]), float(args[1]), float(args[2]),
                     float(args[3]), float(args[4]), float(args[5]))
 
@@ -133,13 +133,18 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
 
         elif line == 'apply':
             matrix_mult( transform, edges )
+            matrix_mult( transform, polygons )
 
         elif line == 'clear':
             edges = []
+            polygons = []
             
         elif line == 'display' or line == 'save':
             clear_screen(screen)
-            draw_lines(edges, screen, color)
+            if (len(edges) >= 2):
+                draw_lines(edges, screen, color)
+            if (len(polygons) >= 3):
+                draw_polygons(polygons, screen, color)
 
             if line == 'display':
                 display(screen)
