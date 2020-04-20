@@ -8,12 +8,17 @@ def scanline_convert(polygons, i, screen, zbuffer ):
     y_values = (polygons[i][1], polygons[i+1][1], polygons[i+2][1])
     z_values = (polygons[i][2], polygons[i+1][2], polygons[i+2][2])
 
-    indeces = [0, 1, 2]
-    bot_index = y_values.index(min(y_values))
-    indeces.pop(indeces.index(bot_index))
-    top_index = y_values.index(max(y_values))
-    indeces.pop(indeces.index(top_index))
-    mid_index = indeces[0]
+    if min(y_values) != max(y_values):
+        indeces = [0, 1, 2]
+        bot_index = y_values.index(min(y_values))
+        indeces.pop(indeces.index(bot_index))
+        top_index = y_values.index(max(y_values))
+        indeces.pop(indeces.index(top_index))
+        mid_index = indeces[0]
+    else:
+        bot_index = 0
+        top_index = 1
+        mid_index = 2
 
     bot = (x_values[bot_index], y_values[bot_index], z_values[bot_index])
     mid = (x_values[mid_index], y_values[mid_index], z_values[mid_index])
@@ -45,7 +50,7 @@ def scanline_convert(polygons, i, screen, zbuffer ):
         delta_z1_flip = (top[2] - mid[2]) / (top[1] - mid[1])
 
     color = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
-    while y <= top[1] + 1:
+    while y <= top[1]:
         draw_line(int(x0), int(y), z0, int(x1), int(y), z1, screen, zbuffer, color)
 
         x0 += delta_x0
@@ -139,7 +144,7 @@ def add_sphere(polygons, cx, cy, cz, r, step ):
     longt_stop = step
 
     step+= 1
-    for lat in range(lat_start, lat_stop):
+    for lat in range(lat_start, lat_start + 1):
         for longt in range(longt_start, longt_stop):
 
             p0 = lat * step + longt
