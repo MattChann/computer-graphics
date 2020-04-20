@@ -1,6 +1,7 @@
 from display import *
 from matrix import *
 from gmath import *
+import random
 
 def scanline_convert(polygons, i, screen, zbuffer ):
     x_values = (polygons[i][0], polygons[i+1][0], polygons[i+2][0])
@@ -9,20 +10,30 @@ def scanline_convert(polygons, i, screen, zbuffer ):
 
     indeces = [0, 1, 2]
     bot_index = y_values.index(min(y_values))
-    indeces.pop(bot_index)
+    indeces.pop(indeces.index(bot_index))
     top_index = y_values.index(max(y_values))
-    indeces.pop(top_index)
+    indeces.pop(indeces.index(top_index))
     mid_index = indeces[0]
 
     bot = (x_values[bot_index], y_values[bot_index], z_values[bot_index])
     mid = (x_values[mid_index], y_values[mid_index], z_values[mid_index])
     top = (x_values[top_index], y_values[top_index], z_values[top_index])
+    # print(f'{bot}, {mid}, {top}')
+    # print('========================')
 
     x0 = bot[0]
     x1 = bot[0]
     y = bot[1]
+    z0 = bot[2]
+    z1 = bot[2]
     
     # Check for division by 0
+    delta_x0 = 0
+    delta_z0 = 0
+    delta_x1 = 0
+    delta_z1 = 0
+    delta_x1_flip = 0
+    delta_z1_flip = 0
     if top[1] != bot[1]:
         delta_x0 = (top[0] - bot[0]) / (top[1] - bot[1])
         delta_z0 = (top[2] - bot[2]) / (top[1] - bot[1])
@@ -32,22 +43,22 @@ def scanline_convert(polygons, i, screen, zbuffer ):
     if top[1] != mid[1]:
         delta_x1_flip = (top[0] - mid[0]) / (top[1] - mid[1])
         delta_z1_flip = (top[2] - mid[2]) / (top[1] - mid[1])
-    
-    
 
     color = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
-    while y <= top[1]:
-        draw_line(int(x0), int(y), int(z0), int(x1), int(y), int(z1), screen, zbuffer, color)
+    while y <= top[1] + 1:
+        draw_line(int(x0), int(y), z0, int(x1), int(y), z1, screen, zbuffer, color)
 
-        y += 1
         x0 += delta_x0
         z0 += delta_z0
         if y < mid[1]:
             x1 += delta_x1
             z1 += delta_z1
+        elif y == mid[1]:
+            x1 = mid[0]
         else:
             x1 += delta_x1_flip
             z1 += delta_z1_flip
+        y += 1
 
 
 
