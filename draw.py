@@ -50,6 +50,9 @@ def scanline_convert(polygons, i, screen, zbuffer ):
         delta_z1_flip = (top[2] - mid[2]) / (top[1] - mid[1])
 
     color = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
+    if int(y) == int(mid[1]):
+        x1 = mid[0]
+        z1 = mid[2]
     while int(y) <= int(top[1]):
         draw_line(int(x0), int(y), z0, int(x1), int(y), z1, screen, zbuffer, color)
 
@@ -60,6 +63,7 @@ def scanline_convert(polygons, i, screen, zbuffer ):
             z1 += delta_z1
         elif int(y) == int(mid[1]):
             x1 = mid[0]
+            z1 = mid[2]
         else:
             x1 += delta_x1_flip
             z1 += delta_z1_flip
