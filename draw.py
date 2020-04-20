@@ -3,7 +3,53 @@ from matrix import *
 from gmath import *
 
 def scanline_convert(polygons, i, screen, zbuffer ):
-    pass
+    x_values = (polygons[i][0], polygons[i+1][0], polygons[i+2][0])
+    y_values = (polygons[i][1], polygons[i+1][1], polygons[i+2][1])
+    z_values = (polygons[i][2], polygons[i+1][2], polygons[i+2][2])
+
+    indeces = [0, 1, 2]
+    bot_index = y_values.index(min(y_values))
+    indeces.pop(bot_index)
+    top_index = y_values.index(max(y_values))
+    indeces.pop(top_index)
+    mid_index = indeces[0]
+
+    bot = (x_values[bot_index], y_values[bot_index], z_values[bot_index])
+    mid = (x_values[mid_index], y_values[mid_index], z_values[mid_index])
+    top = (x_values[top_index], y_values[top_index], z_values[top_index])
+
+    x0 = bot[0]
+    x1 = bot[0]
+    y = bot[1]
+    
+    # Check for division by 0
+    if top[1] != bot[1]:
+        delta_x0 = (top[0] - bot[0]) / (top[1] - bot[1])
+        delta_z0 = (top[2] - bot[2]) / (top[1] - bot[1])
+    if mid[1] != bot[1]:
+        delta_x1 = (mid[0] - bot[0]) / (mid[1] - bot[1])
+        delta_z1 = (mid[2] - bot[2]) / (mid[1] - bot[1])
+    if top[1] != mid[1]:
+        delta_x1_flip = (top[0] - mid[0]) / (top[1] - mid[1])
+        delta_z1_flip = (top[2] - mid[2]) / (top[1] - mid[1])
+    
+    
+
+    color = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
+    while y <= top[1]:
+        draw_line(int(x0), int(y), int(z0), int(x1), int(y), int(z1), screen, zbuffer, color)
+
+        y += 1
+        x0 += delta_x0
+        z0 += delta_z0
+        if y < mid[1]:
+            x1 += delta_x1
+            z1 += delta_z1
+        else:
+            x1 += delta_x1_flip
+            z1 += delta_z1_flip
+
+
 
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point(polygons, x0, y0, z0)
@@ -21,27 +67,28 @@ def draw_polygons( polygons, screen, zbuffer, color ):
         normal = calculate_normal(polygons, point)[:]
         #print normal
         if normal[2] > 0:
-            draw_line( int(polygons[point][0]),
-                       int(polygons[point][1]),
-                       polygons[point][2],
-                       int(polygons[point+1][0]),
-                       int(polygons[point+1][1]),
-                       polygons[point+1][2],
-                       screen, zbuffer, color)
-            draw_line( int(polygons[point+2][0]),
-                       int(polygons[point+2][1]),
-                       polygons[point+2][2],
-                       int(polygons[point+1][0]),
-                       int(polygons[point+1][1]),
-                       polygons[point+1][2],
-                       screen, zbuffer, color)
-            draw_line( int(polygons[point][0]),
-                       int(polygons[point][1]),
-                       polygons[point][2],
-                       int(polygons[point+2][0]),
-                       int(polygons[point+2][1]),
-                       polygons[point+2][2],
-                       screen, zbuffer, color)
+            scanline_convert(polygons, point, screen, zbuffer)
+            # draw_line( int(polygons[point][0]),
+            #            int(polygons[point][1]),
+            #            polygons[point][2],
+            #            int(polygons[point+1][0]),
+            #            int(polygons[point+1][1]),
+            #            polygons[point+1][2],
+            #            screen, zbuffer, color)
+            # draw_line( int(polygons[point+2][0]),
+            #            int(polygons[point+2][1]),
+            #            polygons[point+2][2],
+            #            int(polygons[point+1][0]),
+            #            int(polygons[point+1][1]),
+            #            polygons[point+1][2],
+            #            screen, zbuffer, color)
+            # draw_line( int(polygons[point][0]),
+            #            int(polygons[point][1]),
+            #            polygons[point][2],
+            #            int(polygons[point+2][0]),
+            #            int(polygons[point+2][1]),
+            #            polygons[point+2][2],
+            #            screen, zbuffer, color)
         point+= 3
 
 
