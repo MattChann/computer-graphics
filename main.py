@@ -41,3 +41,6 @@ csystems = [ t ]
 
 
 parse_file( 'script', edges, polygons, csystems, screen, zbuffer, color, view, ambient, light, areflect, dreflect, sreflect)
+
+# mycolor = [255, 223, 0]
+# parse_file( 'myscript', edges, polygons, csystems, screen, zbuffer, mycolor, view, ambient, light, areflect, dreflect, sreflect)
