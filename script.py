@@ -1,4 +1,5 @@
 import mdl
+import decimal
 from display import *
 from matrix import *
 from draw import *
@@ -81,10 +82,12 @@ def second_pass( commands, num_frames ):
             if end_frame >= num_frames:
                 sys.exit("ERROR: end frame cannot be greater than total frames with vary command")
             
+            value = start
             for i in range(num_frames):
                 if i in range(start_frame, end_frame+1):
-                    value = ((end - start) / (end_frame - start_frame)) * (i - start_frame)
+                    increment = (end-start) / (end_frame-start_frame)
                     frames[i][knob] = value
+                    value += increment
 
     return frames
 
