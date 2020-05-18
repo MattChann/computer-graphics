@@ -1,0 +1,57 @@
+frames 100
+basename gallery_0
+
+constants shiny_black 0.2 0.5 0.9 0.2 0.5 0.9 0.2 0.5 0.9
+constants matte_black 0.2 0.5 0.1 0.2 0.5 0.1 0.2 0.5 0.1
+constants bright_red 1 1 1 0 0 0 0 0 0
+constants bright_yellow 1 1 1 1 1 1 0 0 0
+constants bright_orange 1 1 1 0.5 0.5 0.5 0 0 0
+constants bright_white 1 1 1 1 1 1 1 1 1
+
+// Make bomb body
+push
+move 250 -250 0
+move 0 500 0 toss
+sphere shiny_black 0 0 0 100
+
+// Make bomb explosion
+push
+scale 500 500 500 explosion
+sphere bright_red 0 10 -5 10
+sphere bright_yellow 10 0 0 10
+sphere bright_orange -15 0 20 10
+pop
+
+// Make bomb stem
+push
+move 60 100 0
+push
+rotate z -30
+box shiny_black -25 0 -25 50 50 50
+box matte_black -5 70 -5 10 70 10
+
+// Make bomb fuse
+push
+move 0 70 0
+scale 2 2 2 fire
+sphere bright_red 0 0 0 10
+
+vary toss 0 45 0 1
+vary toss 50 99 1 0
+vary explosion 55 99 0 1
+vary fire 0 4 0 1
+vary fire 5 9 1 0
+vary fire 10 14 0 1
+vary fire 15 19 1 0
+vary fire 20 24 0 1
+vary fire 25 29 1 0
+vary fire 30 34 0 1
+vary fire 35 39 1 0
+vary fire 40 44 0 1
+vary fire 45 49 1 0
+vary fire 50 54 0 1
+vary fire 55 59 1 0
+vary fire 60 64 0 1
+vary fire 65 69 1 0
+vary fire 70 74 0 1
+vary fire 75 79 1 0
