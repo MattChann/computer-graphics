@@ -3,7 +3,7 @@
 Matthew Chan, pd 5
 
 Features:
-- light
 - set
 - saveknobs
 - tween
+    - linear, exponential, logarithmic variants
