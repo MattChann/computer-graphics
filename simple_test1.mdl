@@ -1,0 +1,10 @@
+frames 150
+basename simple_50
+push
+move 250 400 0
+push
+move 0 -250 0 fall
+sphere 0 0 0 10
+
+vary fall 0 49 0 1 elastic
+vary fall 50 149 1 0 elastic
