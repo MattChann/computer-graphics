@@ -279,9 +279,12 @@ def p_command_basename(p):
     commands.append(cmd)
 
 def p_command_vary(p):
-    """command : VARY SYMBOL NUMBER NUMBER NUMBER NUMBER"""
-    cmd = {'op' : p[1], 'args' : p[3:], 'knob' : p[2]}
+    """command : VARY SYMBOL NUMBER NUMBER NUMBER NUMBER
+               | VARY SYMBOL NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'args' : p[3:], 'knob' : p[2], 'ease' : 'linear'}
     symbols[p[2]] = ['knob', 0]
+    if len(p) == 8:
+        cmd['ease'] = p[7]
     commands.append(cmd)
 
 def p_command_knobs(p):
@@ -361,8 +364,11 @@ def p_save_coords(p):
 
 
 def p_tween(p):
-    "command : TWEEN NUMBER NUMBER SYMBOL SYMBOL"
-    cmd = {'op':p[1], 'args':p[2:4], 'knob_list0':p[4], 'knob_list1':p[5]}
+    """command : TWEEN NUMBER NUMBER SYMBOL SYMBOL
+               | TWEEN NUMBER NUMBER SYMBOL SYMBOL SYMBOL"""
+    cmd = {'op':p[1], 'args':p[2:4], 'knob_list0':p[4], 'knob_list1':p[5], 'ease':'linear'}
+    if len(p) == 7:
+        cmd['ease'] = p[6]
     commands.append(cmd)
 
 def p_focal(p):

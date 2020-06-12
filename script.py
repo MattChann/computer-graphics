@@ -2,6 +2,7 @@ import mdl
 from display import *
 from matrix import *
 from draw import *
+import ease
 
 """======== first_pass( commands ) ==========
 
@@ -20,7 +21,7 @@ from draw import *
   ==================== """
 def first_pass( commands ):
 
-    frameCheck = varyCheck = nameCheck = False
+    frameCheck = varyCheck = tweenCheck = nameCheck = False
     name = ''
     num_frames = 1
 
@@ -31,12 +32,18 @@ def first_pass( commands ):
             frameCheck = True
         elif command['op'] == 'vary':
             varyCheck = True
+        elif command['op'] == 'tween':
+            tweenCheck = True
         elif command['op'] == 'basename':
             name = command['args'][0]
             nameCheck = True
 
     if varyCheck and not frameCheck:
         print('Error: Vary command found without setting number of frames!')
+        exit()
+
+    elif tweenCheck and not frameCheck:
+        print('Error: Tween command found without setting number of frames!')
         exit()
 
     elif frameCheck and not nameCheck:
@@ -63,34 +70,82 @@ def first_pass( commands ):
   appropirate value.
   ===================="""
 def second_pass( commands, num_frames ):
+    knobs = list()
+
+    for command in commands:
+        if command['op'] in ['move', 'scale', 'rotate']:
+            if command['knob']:
+                knobs.append(command['knob'])
+
     frames = [ {} for i in range(num_frames) ]
+    set_values = dict()
+    knob_lists = dict()
 
     for command in commands:
         if command['op'] == 'vary':
             args = command['args']
             knob_name = command['knob']
-            start_frame = args[0]
-            end_frame = args[1]
+            start_frame = int(args[0])
+            end_frame = int(args[1])
             start_value = float(args[2])
             end_value = float(args[3])
-            value = 0
 
+            ease_type = command['ease']
+            if ease_type not in ease.EASES:
+                print('Invalid ease for knob: ' + knob_name)
+                exit()
             if ((start_frame < 0) or
                 (end_frame >= num_frames) or
                 (end_frame <= start_frame)):
                 print('Invalid vary command for knob: ' + knob_name)
                 exit()
 
-            delta = (end_value - start_value) / (end_frame - start_frame)
+            values = ease.generate(ease_type, start_value, end_value, (1+end_frame-start_frame))
+            for i in range(len(values)):
+                frames[i+start_frame][knob_name] = values[i]
+        
+        elif command['op'] == 'set':
+            if command['knob']:
+                set_values[command['knob']] = command['args'][0]
+            else:
+                for knob in knobs:
+                    set_values[knob] = command['args'][0]
+        
+        elif command['op'] == 'save_knobs':
+            knob_lists[command['knob_list']] = set_values
+            set_values = dict()
+        
+        elif command['op'] == 'tween':
+            start_frame = int(args[0])
+            end_frame = int(args[1])
+            start_knob_list = knob_lists[command['knob_list0']]
+            end_knob_list = knob_lists[command['knob_list1']]
+            ease_type = command['ease']
+            frame_diff = (1+end_frame-start_frame)
 
-            for f in range(num_frames):
-                if f == start_frame:
-                    value = start_value
-                    frames[f][knob_name] = value
-                elif f >= start_frame and f <= end_frame:
-                    value = start_value + delta * (f - start_frame)
-                    frames[f][knob_name] = value
-                #print 'knob: ' + knob_name + '\tvalue: ' + str(frames[f][knob_name])
+            if ease_type not in ease.EASES:
+                print('Invalid ease for knob: ' + knob_name)
+                exit()   
+            if ((start_frame < 0) or
+                (end_frame >= num_frames) or
+                (end_frame <= start_frame)):
+                print('Invalid vary command for knob: ' + knob_name)
+                exit()
+            if set(start_knob_list.keys()) != set(end_knob_list.keys()):
+                print(f'Attempting to tween mismatched knob lists: {command["knob_list0"]}, {command["knob_list1"]}')
+                exit()
+            
+            listed_knobs = list(start_knob_list.keys())
+            calculated_vals = dict()
+            for knob_name in listed_knobs:
+                start_value = start_knob_list[knob_name]
+                end_value = end_knob_list[knob_name]
+                calculated_vals[knob_name] = ease.generate(ease_type, start_value, end_value, frame_diff)
+
+            for i in range(frame_diff):
+                for knob_name in listed_knobs:
+                    frames[i+start_frame][knob_name] = calculated_vals[knob_name][i]
+
     return frames
 
 
@@ -148,7 +203,7 @@ def run(filename):
             frame = frames[f]
             for knob in frame:
                 symbols[knob][1] = frame[knob]
-                print('\tkob: ' + knob + '\tvalue: ' + str(frame[knob]))
+                print('\tknob: ' + knob + '\tvalue: ' + str(frame[knob]))
 
         for command in commands:
             print(command)
