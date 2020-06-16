@@ -9,12 +9,16 @@ def generate(ease, start, end, frames):
         delta = (end - start) / (frames-1)
     values = list()
 
-    curr = start
+    if start > end:
+        curr = end
+    else:
+        curr = start
     for f in range(frames):
         values.append(curr)
         curr += delta
     values[-1] = end
-    # print(values)
+    # print(f'values: {values}')
+
 
     if ease == 'linear':
         values = [shift(linear(x), start, end) for x in values]
@@ -34,6 +38,7 @@ def generate(ease, start, end, frames):
         values = [shift(bounce(x), start, end) for x in values]
     values[0] = start
     values[-1] = end
+    # print(f'GRAPH values: {values}')
     
     return values
 

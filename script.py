@@ -116,6 +116,7 @@ def second_pass( commands, num_frames ):
             set_values = dict()
         
         elif command['op'] == 'tween':
+            args = command['args']
             start_frame = int(args[0])
             end_frame = int(args[1])
             start_knob_list = knob_lists[command['knob_list0']]
@@ -124,16 +125,16 @@ def second_pass( commands, num_frames ):
             frame_diff = (1+end_frame-start_frame)
 
             if ease_type not in ease.EASES:
-                print('Invalid ease for knob: ' + knob_name)
+                print(f'Invalid ease for tween with lists: {command["knob_list0"]}, {command["knob_list1"]}')
                 exit()   
             if ((start_frame < 0) or
                 (end_frame >= num_frames) or
                 (end_frame <= start_frame)):
-                print('Invalid vary command for knob: ' + knob_name)
+                print(f'Invalid tween command for lists: {command["knob_list0"]}, {command["knob_list1"]}')
                 exit()
-            if set(start_knob_list.keys()) != set(end_knob_list.keys()):
-                print(f'Attempting to tween mismatched knob lists: {command["knob_list0"]}, {command["knob_list1"]}')
-                exit()
+            # if set(start_knob_list.keys()) != set(end_knob_list.keys()):
+            #     print(f'Attempting to tween mismatched knob lists: {command["knob_list0"]}, {command["knob_list1"]}')
+            #     exit()
             
             listed_knobs = list(start_knob_list.keys())
             calculated_vals = dict()
