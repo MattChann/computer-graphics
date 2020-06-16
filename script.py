@@ -105,11 +105,11 @@ def second_pass( commands, num_frames ):
                 frames[i+start_frame][knob_name] = values[i]
         
         elif command['op'] == 'set':
-            if command['knob']:
-                set_values[command['knob']] = command['args'][0]
-            else:
-                for knob in knobs:
-                    set_values[knob] = command['args'][0]
+            set_values[command['knob']] = command['args'][0]
+
+        elif command['op'] == 'setknobs':
+            for knob in knobs:
+                set_values[knob] = command['args'][0]
         
         elif command['op'] == 'save_knobs':
             knob_lists[command['knob_list']] = set_values
