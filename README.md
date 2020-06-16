@@ -5,7 +5,7 @@ Features:
 - **set**
     - Assign a value to a specific knob or all knobs
     - ex: `set knob 5`
-    - ex: `set_knobs 3`
+    - ex: `setknobs 3`
 - **saveknobs**
     - Save current knob values to a list
     - ex: `saveknobs list0`
