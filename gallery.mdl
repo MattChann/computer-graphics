@@ -1,0 +1,72 @@
+constants dull_yellow 0.3 0.8 0.2 0.3 0.8 0.2 0 0 0
+constants dull_blue 0 0 0 0 0 0 0.3 0.8 0.2
+constants dull_green 0 0 0 0.3 0.8 0.2 0 0 0
+
+// BODY
+push
+move 250 250 0
+rotate y -15
+rotate x 5
+box dull_blue -100 125 50 200 250 100
+
+// HEAD
+push
+move 0 150 0
+sphere dull_yellow 0 -25 0 50
+sphere dull_yellow 0 -23 0 50
+sphere dull_yellow 0 -21 0 50
+sphere dull_yellow 0 -19 0 50
+sphere dull_yellow 0 -17 0 50
+sphere dull_yellow 0 -15 0 50
+sphere dull_yellow 0 -13 0 50
+sphere dull_yellow 0 -11 0 50
+sphere dull_yellow 0 -9 0 50
+sphere dull_yellow 0 -7 0 50
+sphere dull_yellow 0 -5 0 50
+sphere dull_yellow 0 -3 0 50
+sphere dull_yellow 0 -1 0 50
+sphere dull_yellow 0 1 0 50
+sphere dull_yellow 0 3 0 50
+sphere dull_yellow 0 5 0 50
+sphere dull_yellow 0 7 0 50
+sphere dull_yellow 0 9 0 50
+sphere dull_yellow 0 11 0 50
+sphere dull_yellow 0 13 0 50
+sphere dull_yellow 0 15 0 50
+sphere dull_yellow 0 17 0 50
+sphere dull_yellow 0 19 0 50
+
+sphere -10 0 35 15
+sphere 10 0 35 15
+pop
+
+// LEFT ARM
+push
+move -100 100 0
+rotate x 45
+box dull_yellow -75 25 35 75 150 70
+pop
+
+// RIGHT ARM
+push
+move 100 100 0
+rotate x -45
+box dull_yellow 0 25 35 75 150 70
+pop
+
+// LEFT LEG
+push
+move -50 -125 0
+rotate x 35
+box dull_green -50 0 50 100 150 100
+pop
+
+// RIGHT LEG
+push
+move 50 -125 0
+rotate x -35
+box dull_green -50 0 50 100 150 100
+pop
+
+display
+save gallery.png
