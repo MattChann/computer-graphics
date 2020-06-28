@@ -1,0 +1,76 @@
+//frames 300
+//basename simple_50
+
+constants midnight 0.04313 0.04313 0.04313 0.23529 0.23529 0.23529 0.28627 0.28627 0.28627
+constants purple 0.45098 0.45098 0.45098 0.09803 0.09803 0.09803 0.38823 0.38823 0.38823
+constants white 1 1 1 1 1 1 1 1 1
+constants blue 0.50196 0.50196 0.50196 0.45882 0.45882 0.45882 1 1 1
+
+push
+
+    push
+    //rotate y 30
+    move 0 1000 0
+        push
+        move 250 525 0
+        //rotate z -30
+            push
+            move 0 -350 0
+                push
+                box midnight -1 525 1 2 525 2
+                sphere midnight 0 25 0 25
+                pop
+            pop
+        pop
+
+        push
+        move 500 200 0
+        //move -225 0 0
+            push
+            box purple 0 30 30 300 60 60
+            pop
+        pop
+    pop
+
+
+    push
+
+        // EYES
+        push
+        move 250 250 0
+            push
+            move -100 0 0
+                push
+                sphere white 0 0 0 50
+                    push
+                    //rotate z 180
+                        push
+                        move 15 0 35
+                        //move -30 0 0
+                        sphere blue 0 0 0 20
+                        pop
+                    pop
+                pop
+            pop
+            push
+            move 100 0 0
+                push
+                sphere white 0 0 0 50
+                    push
+                    //rotate z 180
+                        push
+                        move 15 0 35
+                        //move -30 0 0
+                        sphere blue 0 0 0 20
+                        pop
+                    pop
+                pop
+            pop
+        pop
+    pop
+
+pop
+
+
+display
+save gallery.png
